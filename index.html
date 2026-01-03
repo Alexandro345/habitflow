@@ -68,30 +68,38 @@
 
     <!-- CONFIGURACIÓN -->
     <section id="settings" class="tab">
-      <h2>Configuración</h2>
+    <h3 class="settings-title">Configuración</h3>
+
+    <!-- SECCIÓN ASPECTO -->
+    <div class="settings-section">
+      <h4 class="settings-section-title">Aspecto</h4>
+
       <ul class="settings-list">
-        <li>
-          <span>Apariencia</span>
-          <div class="setting-item">
-            <span>Modo oscuro</span>
-            <label class="switch">
-              <input type="checkbox" id="darkModeToggle">
-              <span class="slider"></span>
-            </label>
-          </div>
-        </li>
-        <li>
-          <span>Notificaciones</span>
-          <div class="setting-item">
-            <span>Recordatorios</span>
-            <label class="switch">
-              <input type="checkbox" id="notifyToggle">
-              <span class="slider"></span>
-            </label>
-          </div>
+        <li class="settings-item">
+          <span>Modo oscuro</span>
+          <label class="switch">
+            <input type="checkbox" id="darkModeToggle">
+            <span class="slider"></span>
+          </label>
         </li>
       </ul>
-    </section>
+    </div>
+
+    <!-- SECCIÓN NOTIFICACIONES -->
+    <div class="settings-section">
+      <h4 class="settings-section-title">Notificaciones</h4>
+
+      <ul class="settings-list">
+        <li class="settings-item">
+          <span>Recordatorios</span>
+          <label class="switch">
+            <input type="checkbox" id="notifyToggle">
+            <span class="slider"></span>
+          </label>
+        </li>
+      </ul>
+    </div>
+  </section>
 
   </div>
 
