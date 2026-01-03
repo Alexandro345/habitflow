@@ -1,10 +1,23 @@
+const habitInput = document.getElementById("habitInput");
 const habitList = document.getElementById("habitList");
-const addHabitBtn = document.getElementById("addHabitBtn");
+const addBtn = document.getElementById("addBtn");
 
 let habits = JSON.parse(localStorage.getItem("habits")) || [];
 
-function saveHabits() {
-  localStorage.setItem("habits", JSON.stringify(habits));
+addBtn.addEventListener("click", addHabit);
+
+function addHabit() {
+  const text = habitInput.value.trim();
+  if (!text) return;
+
+  habits.push({
+    name: text,
+    completed: false
+  });
+
+  habitInput.value = "";
+  saveHabits();
+  renderHabits();
 }
 
 function renderHabits() {
@@ -12,33 +25,26 @@ function renderHabits() {
 
   habits.forEach((habit, index) => {
     const li = document.createElement("li");
-    li.className = "habit";
+    li.textContent = habit.name;
 
-    li.innerHTML = `
-      <span>${habit.name}</span>
-      <input type="checkbox" ${habit.done ? "checked" : ""}>
-    `;
+    if (habit.completed) {
+      li.style.textDecoration = "line-through";
+      li.style.opacity = "0.6";
+    }
 
-    li.querySelector("input").addEventListener("change", () => {
-      habit.done = !habit.done;
-      saveHabits();
-    });
-
+    li.addEventListener("click", () => toggleHabit(index));
     habitList.appendChild(li);
   });
 }
 
-addHabitBtn.addEventListener("click", () => {
-  const name = prompt("Nombre del hábito:");
-  if (!name) return;
-
-  habits.push({ name, done: false });
+function toggleHabit(index) {
+  habits[index].completed = !habits[index].completed;
   saveHabits();
   renderHabits();
-});
+}
+
+function saveHabits() {
+  localStorage.setItem("habits", JSON.stringify(habits));
+}
 
 renderHabits();
-
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("service-worker.js");
-}
