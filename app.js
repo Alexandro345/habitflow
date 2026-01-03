@@ -154,20 +154,21 @@ setInterval(() => {
   }
 }, 60000);
 
-/* ===== MENU ORDENAR HABITOS ===== */
+/* ===== MENU ORDENAR HABITOS (HAMBURGUESA) ===== */
 const menuBtn = document.getElementById("menuBtn");
 const sortTab = document.getElementById("sortHabits");
 const sortList = document.getElementById("sortList");
 const closeSort = document.getElementById("closeSort");
 
-// Abrir pestaña
+// Abrir/transformar botón hamburguesa a X y abrir pestaña
 menuBtn.addEventListener("click", () => {
-  sortTab.classList.add("active");
-  renderSortList();
+  menuBtn.classList.toggle("active"); // Animación de líneas ↔ X
+  sortTab.classList.toggle("active"); // Mostrar/Ocultar pestaña
 });
 
-// Cerrar pestaña
+// Cerrar pestaña con botón X
 closeSort.addEventListener("click", () => {
+  menuBtn.classList.remove("active");
   sortTab.classList.remove("active");
 });
 
@@ -178,7 +179,7 @@ function renderSortList() {
     const li = document.createElement("li");
     li.textContent = habit.name;
 
-    // Botón eliminar
+    // Botón eliminar estilo Apple
     const delBtn = document.createElement("button");
     delBtn.classList.add("delete-btn");
     delBtn.textContent = "–"; // símbolo de Apple
@@ -194,3 +195,5 @@ function renderSortList() {
   });
 }
 
+// Actualizar la lista de ordenar al abrir pestaña
+menuBtn.addEventListener("click", renderSortList);

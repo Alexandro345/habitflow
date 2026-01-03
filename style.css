@@ -136,24 +136,65 @@ body.dark-mode .bottom-nav { background: #1e1e1e; border-top: 1px solid #333; }
 body.dark-mode .slider { background-color: #555; }
 body.dark-mode input:checked + .slider { background-color: var(--accent); }
 
-/* ===== BOTÓN MENÚ HAMBURGUESA ===== */
+/* ===== BOTÓN HAMBURGUESA CIRCULAR ===== */
 .menu-btn {
-  position: absolute; top: 16px; left: 16px;
-  width: 50px; height: 50px; border-radius: 50%;
-  border: none; background: rgba(255,255,255,0.15);
-  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-  z-index: 1001; transition: background 0.2s, transform 0.1s;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding: 0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  position: relative;
+  z-index: 1001;
+  transition: background 0.2s, transform 0.1s;
 }
-.menu-btn img { width: 24px; height: 24px; }
-.menu-btn:active {
-  background: rgba(255,255,255,0.35);
-  box-shadow: 0 0 25px rgba(255,255,255,0.6);
-  transform: scale(0.95);
+
+/* Líneas de la hamburguesa */
+.menu-btn .line {
+  display: block;
+  width: 24px;
+  height: 3px;           /* Grosor de línea */
+  background: #111;       /* Color de líneas */
+  border-radius: 2px;     /* Puntas redondeadas */
+  margin: 3px 0;
+  transition: transform 0.4s ease, opacity 0.4s ease;
 }
-body.dark-mode .menu-btn { background: rgba(30,30,30,0.25); border: 1px solid rgba(255,255,255,0.2); }
-body.dark-mode .menu-btn:active { background: rgba(255,255,255,0.3); }
+
+/* Transformación a X */
+.menu-btn.active .line1 {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.menu-btn.active .line2 {
+  opacity: 0;
+}
+
+.menu-btn.active .line3 {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* ===== ICONO DE CIERRE ===== */
+.close-icon {
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  top: 13px;             /* Ajustar según botón */
+  left: 13px;
+  display: none;
+  z-index: 1002;
+  pointer-events: none;
+}
+
+.close-icon.visible {
+  display: block;
+}
+
 
 /* ===== PESTAÑA ORDENAR HÁBITOS ===== */
 .sort-tab {
