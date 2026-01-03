@@ -1,21 +1,17 @@
-/* ========== VARIABLES GLOBALES ========== */
+/* ===== VARIABLES ===== */
 :root {
   --bg: #f7f7f7;
   --card: #ffffff;
   --text: #1a1a1a;
   --muted: #888;
-  --accent: #4CAF50; /* Verde moderno */
+  --accent: #4CAF50;
   --accent-light: #d5f0d5;
   --shadow: rgba(0, 0, 0, 0.1);
   --nav-height: 70px;
 }
 
-/* ========== REGLAS GENERALES ========== */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+/* ===== REGLAS GENERALES ===== */
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text",
@@ -24,295 +20,97 @@ body {
   display: flex;
   justify-content: center;
   min-height: 100vh;
-  padding-bottom: var(--nav-height); /* espacio para barra inferior */
+  padding-bottom: var(--nav-height);
 }
 
-/* ========== CONTENEDOR PRINCIPAL ========== */
-.app {
-  width: 100%;
-  max-width: 420px;
-  padding: 24px 16px 0 16px;
-}
+/* ===== CONTENEDOR ===== */
+.app { width: 100%; max-width: 420px; padding: 24px 16px 0 16px; }
 
-/* ========== ENCABEZADO ========== */
-h1 {
-  font-size: 28px;
-  font-weight: 600;
-  margin-bottom: 24px;
-  color: var(--text);
-  text-align: center;
-}
+/* ===== ENCABEZADO ===== */
+h1 { font-size: 28px; font-weight: 600; margin-bottom: 24px; color: var(--text); text-align: center; }
 
-/* ========== INPUT + BOTÓN ========== */
-.input-row {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 20px;
-}
-
+/* ===== INPUT + BOTONES ===== */
+.input-row { display: flex; gap: 8px; margin-bottom: 20px; }
 input {
-  flex: 1;
-  padding: 14px;
-  font-size: 15px;
-  border-radius: 12px;
-  border: 1px solid #ddd;
-  outline: none;
+  flex: 1; padding: 14px; font-size: 15px; border-radius: 12px;
+  border: 1px solid #ddd; outline: none;
 }
-
-input:focus {
-  border-color: var(--accent);
-}
-
+input:focus { border-color: var(--accent); }
 button {
-  padding: 14px 18px;
-  border-radius: 12px;
-  border: none;
-  background: var(--accent);
-  color: white;
-  font-size: 15px;
-  cursor: pointer;
+  padding: 14px 18px; border-radius: 12px; border: none;
+  background: var(--accent); color: white; font-size: 15px; cursor: pointer;
   transition: transform 0.1s, background 0.2s;
 }
+button:hover { background: var(--accent-light); color: var(--accent); }
+button:active { transform: scale(0.97); }
 
-button:hover {
-  background: var(--accent-light);
-  color: var(--accent);
-}
-
-button:active {
-  transform: scale(0.97);
-}
-
-/* ========== LISTA DE HÁBITOS ========== */
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
+/* ===== LISTA HÁBITOS ===== */
+ul { list-style: none; padding: 0; margin: 0; }
 li {
-  background: var(--card);
-  padding: 16px;
-  border-radius: 14px;
-  margin-bottom: 12px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
+  background: var(--card); padding: 16px; border-radius: 14px;
+  margin-bottom: 12px; display: flex; justify-content: space-between;
+  align-items: center; cursor: pointer;
   transition: background 0.2s, box-shadow 0.2s;
   box-shadow: 0 2px 5px var(--shadow);
 }
+li:hover { background: var(--accent-light); }
+li.completed { opacity: 0.6; text-decoration: line-through; }
 
-li:hover {
-  background: var(--accent-light);
-}
+/* ===== PESTAÑAS ===== */
+.tab { display: none; }
+.tab.active { display: block; }
 
-li.completed {
-  opacity: 0.6;
-  text-decoration: line-through;
-}
-
-/* ========== BOTÓN DE NOTIFICACIONES ========== */
-#notifyBtn {
-  width: 100%;
-  margin-bottom: 16px;
-  background: #eee;
-  color: #111;
-  border-radius: 12px;
-  padding: 14px;
-  font-weight: 600;
-}
-
-/* ========== PESTAÑAS ========== */
-.tab {
-  display: none;
-}
-
-.tab.active {
-  display: block;
-}
-
-/* ========== BARRA INFERIOR ========== */
+/* ===== BARRA INFERIOR ===== */
 .bottom-nav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  display: flex;
-  height: var(--nav-height);
-  background: #fff;
-  border-top: 1px solid #ddd;
-  box-shadow: 0 -3px 6px var(--shadow);
-  z-index: 1000;
+  position: fixed; bottom: 0; left: 0; width: 100%; display: flex;
+  height: var(--nav-height); background: #fff; border-top: 1px solid #ddd;
+  box-shadow: 0 -3px 6px var(--shadow); z-index: 1000;
 }
-
 .bottom-nav button {
-  flex: 1;
-  border: none;
-  background: none;
-  font-size: 18px;
-  color: var(--muted);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.2s;
+  flex: 1; border: none; background: none; font-size: 18px; color: var(--muted);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  cursor: pointer; transition: all 0.2s;
 }
+.bottom-nav button.active { color: var(--accent); font-weight: 600; }
+.bottom-nav button:hover { background: #f0f0f0; border-radius: 12px 12px 0 0; }
 
-.bottom-nav button.active {
-  color: var(--accent);
-  font-weight: 600;
-}
-
-.bottom-nav button:hover {
-  background: #f0f0f0;
-  border-radius: 12px 12px 0 0;
-}
-
-/* ========== ESTADÍSTICAS ========== */
-#streaks {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-top: 12px;
-}
-
+/* ===== ESTADÍSTICAS ===== */
+#streaks { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 12px; }
 .streak-card {
-  background: var(--accent);
-  color: #fff;
-  padding: 14px;
-  border-radius: 12px;
-  flex: 1 1 100px;
-  text-align: center;
-  font-weight: 600;
-  box-shadow: 0 2px 5px var(--shadow);
+  background: var(--accent); color: #fff; padding: 14px; border-radius: 12px;
+  flex: 1 1 100px; text-align: center; font-weight: 600; box-shadow: 0 2px 5px var(--shadow);
 }
+#calendar { margin-top: 20px; text-align: center; color: var(--muted); font-size: 14px; }
 
-#calendar {
-  margin-top: 20px;
-  text-align: center;
-  color: var(--muted);
-  font-size: 14px;
-}
-
-/* ========== LISTA DE CONFIGURACIÓN ========== */
-.settings-list {
-  list-style: none;
-  padding: 0;
-  margin-top: 20px;
-}
-
+/* ===== CONFIGURACIÓN ===== */
+.settings-list { list-style: none; padding: 0; margin-top: 20px; }
 .settings-list li {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: var(--card);
-  padding: 14px 16px;
-  border-radius: 12px;
-  margin-bottom: 12px;
+  display: flex; justify-content: space-between; align-items: center;
+  background: var(--card); padding: 14px 16px; border-radius: 12px; margin-bottom: 12px;
   box-shadow: 0 2px 5px var(--shadow);
 }
+.setting-item { display: flex; align-items: center; gap: 10px; }
 
-.setting-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-/* ========== TOGGLE ESTILO APPLE ========== */
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 50px;
-  height: 28px;
-}
-
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
+/* ===== TOGGLE APPLE ===== */
+.switch { position: relative; display: inline-block; width: 50px; height: 28px; }
+.switch input { opacity: 0; width: 0; height: 0; }
 .slider {
-  position: absolute;
-  cursor: pointer;
-  background-color: #ccc;
-  border-radius: 34px;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  position: absolute; cursor: pointer; background-color: #ccc;
+  border-radius: 34px; top: 0; left: 0; right: 0; bottom: 0;
   transition: 0.4s;
 }
-
 .slider:before {
-  position: absolute;
-  content: "";
-  height: 22px;
-  width: 22px;
-  left: 3px;
-  bottom: 3px;
-  background-color: white;
-  border-radius: 50%;
-  transition: 0.4s;
+  position: absolute; content: ""; height: 22px; width: 22px; left: 3px; bottom: 3px;
+  background-color: white; border-radius: 50%; transition: 0.4s;
 }
+input:checked + .slider { background-color: var(--accent); }
+input:checked + .slider:before { transform: translateX(22px); }
 
-input:checked + .slider {
-  background-color: var(--accent);
-}
-
-input:checked + .slider:before {
-  transform: translateX(22px);
-}
-
-/* ========== MODO OSCURO ========== */
-body.dark-mode {
-  background: #121212;
-  color: #eee;
-}
-
-body.dark-mode .app {
-  background: #1e1e1e;
-}
-
-body.dark-mode li,
-body.dark-mode .settings-list li {
-  background: #2a2a2a;
-  color: #eee;
-}
-
-body.dark-mode input,
-body.dark-mode button,
-body.dark-mode .bottom-nav button {
-  color: #eee;
-}
-
-body.dark-mode .bottom-nav {
-  background: #1e1e1e;
-  border-top: 1px solid #333;
-}
-
-body.dark-mode .slider {
-  background-color: #555;
-}
-
-body.dark-mode input:checked + .slider {
-  background-color: var(--accent);
-}
-
-/* Botón dentro de la lista de configuración */
-.settings-list li button#notifyBtn {
-  padding: 8px 12px;
-  background: var(--accent);
-  color: white;
-  border-radius: 12px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.settings-list li button#notifyBtn:hover {
-  background: var(--accent-light);
-  color: var(--accent);
-}
+/* ===== MODO OSCURO ===== */
+body.dark-mode { background: #121212; color: #eee; }
+body.dark-mode .app { background: #1e1e1e; }
+body.dark-mode li, body.dark-mode .settings-list li { background: #2a2a2a; color: #eee; }
+body.dark-mode input, body.dark-mode button, body.dark-mode .bottom-nav button { color: #eee; }
+body.dark-mode .bottom-nav { background: #1e1e1e; border-top: 1px solid #333; }
+body.dark-mode .slider { background-color: #555; }
+body.dark-mode input:checked + .slider { background-color: var(--accent); }

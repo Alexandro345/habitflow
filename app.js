@@ -1,3 +1,4 @@
+/* ===== HÁBITOS ===== */
 const habitInput = document.getElementById("habitInput");
 const habitList = document.getElementById("habitList");
 const addBtn = document.getElementById("addBtn");
@@ -28,17 +29,12 @@ function renderHabits() {
   const today = new Date().toDateString();
 
   habits.forEach((habit, index) => {
-    // Reset visual diario
-    if (habit.lastCompleted !== today) {
-      habit.completed = false;
-    }
+    if (habit.lastCompleted !== today) habit.completed = false;
 
     const li = document.createElement("li");
     li.textContent = `${habit.name} 🔥 ${habit.streak}`;
 
-    if (habit.completed) {
-      li.classList.add("completed");
-    }
+    if (habit.completed) li.classList.add("completed");
 
     li.addEventListener("click", () => toggleHabit(index));
     habitList.appendChild(li);
@@ -49,7 +45,6 @@ function toggleHabit(index) {
   const habit = habits[index];
   const today = new Date().toDateString();
 
-  // Evitar doble check el mismo día
   if (habit.lastCompleted === today) return;
 
   habit.completed = true;
@@ -62,7 +57,6 @@ function toggleHabit(index) {
   }
 
   habit.lastCompleted = today;
-
   saveHabits();
   renderHabits();
 }
@@ -73,48 +67,14 @@ function saveHabits() {
 
 renderHabits();
 
-if ("Notification" in window) {
-  Notification.requestPermission();
-}
-
-setInterval(() => {
-  const now = new Date();
-  const hour = now.getHours();
-
-  habits.forEach(habit => {
-    const today = new Date().toDateString();
-    if (!habit.history[today] && habit.reminderHour === hour) {
-      new Notification("⏰ HabitFlow", {
-        body: `Recuerda: ${habit.name}`
-      });
-    }
-  });
-}, 60000);
-
-const notifyBtn = document.getElementById("notifyBtn");
-
-if (notifyBtn) {
-  notifyBtn.addEventListener("click", async () => {
-    console.log("Botón presionado");
-
-    const permission = await Notification.requestPermission();
-    console.log("Permiso:", permission);
-
-    if (permission === "granted") {
-      alert("🔔 Recordatorios activados");
-    } else if (permission === "denied") {
-      alert("❌ Permiso denegado");
-    }
-  });
-}
-
+/* ===== SERVICE WORKER ===== */
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("service-worker.js")
     .then(() => console.log("✅ Service Worker registrado"))
     .catch(err => console.error("❌ SW error", err));
 }
 
-// Cambiar entre pestañas
+/* ===== CAMBIO DE PESTAÑAS ===== */
 const navButtons = document.querySelectorAll(".bottom-nav button");
 const tabs = document.querySelectorAll(".tab");
 
@@ -133,9 +93,11 @@ navButtons.forEach(btn => {
 // Por defecto, marcar Hábitos
 document.querySelector('.bottom-nav button[data-tab="habits"]').classList.add("active");
 
+/* ===== TOGGLES CONFIGURACIÓN ===== */
 const darkModeToggle = document.getElementById("darkModeToggle");
+const notifyToggle = document.getElementById("notifyToggle");
 
-// Revisar si ya había preferencia guardada
+// Modo oscuro
 if (localStorage.getItem("darkMode") === "enabled") {
   document.body.classList.add("dark-mode");
   darkModeToggle.checked = true;
@@ -150,3 +112,44 @@ darkModeToggle.addEventListener("change", () => {
     localStorage.setItem("darkMode", "disabled");
   }
 });
+
+// Notificaciones
+if (localStorage.getItem("notifications") === "enabled") {
+  notifyToggle.checked = true;
+}
+
+// Solicitar permiso al activar el toggle
+notifyToggle.addEventListener("change", async () => {
+  if (notifyToggle.checked) {
+    const permission = await Notification.requestPermission();
+    if (permission === "granted") {
+      localStorage.setItem("notifications", "enabled");
+      alert("🔔 Recordatorios activados");
+    } else {
+      notifyToggle.checked = false;
+      localStorage.setItem("notifications", "disabled");
+      alert("❌ Permiso denegado");
+    }
+  } else {
+    localStorage.setItem("notifications", "disabled");
+  }
+});
+
+/* ===== RECORDATORIOS AUTOMÁTICOS ===== */
+setInterval(() => {
+  if (notifyToggle.checked && "Notification" in window) {
+    const now = new Date();
+    const hour = now.getHours();
+    const today = new Date().toDateString();
+
+    habits.forEach(habit => {
+      if (!habit.lastCompleted || habit.lastCompleted !== today) {
+        if (habit.reminderHour === hour) {
+          new Notification("⏰ HabitFlow", {
+            body: `Recuerda: ${habit.name}`
+          });
+        }
+      }
+    });
+  }
+}, 60000);
