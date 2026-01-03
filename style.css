@@ -4,8 +4,8 @@
   --card: #ffffff;
   --text: #1a1a1a;
   --muted: #888;
-  --accent: #4CAF50;
-  --accent-light: #d5f0d5;
+  --accent: #2c2d2c;
+  --accent-light: #b2b2b2;
   --shadow: rgba(0, 0, 0, 0.1);
   --nav-height: 70px;
 }
@@ -106,9 +106,13 @@ li.completed { opacity: 0.6; text-decoration: line-through; }
 input:checked + .slider { background-color: var(--accent); }
 input:checked + .slider:before { transform: translateX(22px); }
 
+
+
+
+
 /* ===== MODO OSCURO ===== */
-body.dark-mode { background: #121212; color: #eee; }
-body.dark-mode .app { background: #1e1e1e; }
+body.dark-mode { background: #0a0a0a; color: #eee; }
+body.dark-mode .app { background: #0a0a0a; }
 body.dark-mode li, body.dark-mode .settings-list li { background: #2a2a2a; color: #eee; }
 body.dark-mode input, body.dark-mode button, body.dark-mode .bottom-nav button { color: #eee; }
 body.dark-mode .bottom-nav { background: #1e1e1e; border-top: 1px solid #333; }
@@ -144,6 +148,8 @@ body.dark-mode input:checked + .slider { background-color: var(--accent); }
   transform: scale(1.05);
 }
 
+
+
 /* ===== PESTAÑA ORDENAR HABITOS ===== */
 .sort-tab {
   position: fixed;
@@ -162,12 +168,39 @@ body.dark-mode input:checked + .slider { background-color: var(--accent); }
   z-index: 1000;
 }
 
-/* Mostrar la pestaña */
 .sort-tab.active {
   bottom: 0;
 }
 
-/* Lista de hábitos con botones de eliminar */
+/* Header con título + botón cerrar */
+.sort-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.sort-header h2 {
+  font-size: 20px;
+  margin: 0;
+  color: var(--text);
+}
+
+/* Botón cerrar */
+.close-btn {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.close-btn img {
+  width: 24px;
+  height: 24px;
+}
+
+/* Lista de hábitos */
 #sortList li {
   display: flex;
   justify-content: space-between;
@@ -177,6 +210,7 @@ body.dark-mode input:checked + .slider { background-color: var(--accent); }
   border-radius: 12px;
   margin-bottom: 12px;
   box-shadow: 0 2px 5px var(--shadow);
+  color: var(--text);
 }
 
 /* Botón eliminar estilo Apple */
@@ -193,3 +227,14 @@ body.dark-mode input:checked + .slider { background-color: var(--accent); }
   cursor: pointer;
   font-size: 18px;
 }
+
+/* ===== MODO OSCURO ===== */
+body.dark-mode .sort-tab {
+  background: #1e1e1e;
+}
+
+body.dark-mode #sortList li {
+  background: #2a2a2a;
+  color: #eee;
+}
+

@@ -158,6 +158,7 @@ setInterval(() => {
 const menuBtn = document.getElementById("menuBtn");
 const sortTab = document.getElementById("sortHabits");
 const sortList = document.getElementById("sortList");
+const closeSort = document.getElementById("closeSort");
 
 // Abrir pestaña
 menuBtn.addEventListener("click", () => {
@@ -165,11 +166,9 @@ menuBtn.addEventListener("click", () => {
   renderSortList();
 });
 
-// Cerrar pestaña tocando fuera o con ESC (opcional)
-sortTab.addEventListener("click", e => {
-  if (e.target === sortTab) {
-    sortTab.classList.remove("active");
-  }
+// Cerrar pestaña
+closeSort.addEventListener("click", () => {
+  sortTab.classList.remove("active");
 });
 
 // Renderizar lista de hábitos en pestaña Ordenar
@@ -194,3 +193,4 @@ function renderSortList() {
     sortList.appendChild(li);
   });
 }
+
