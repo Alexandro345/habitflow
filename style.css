@@ -300,3 +300,19 @@ body.dark-mode .slider {
 body.dark-mode input:checked + .slider {
   background-color: var(--accent);
 }
+
+/* Botón dentro de la lista de configuración */
+.settings-list li button#notifyBtn {
+  padding: 8px 12px;
+  background: var(--accent);
+  color: white;
+  border-radius: 12px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.settings-list li button#notifyBtn:hover {
+  background: var(--accent-light);
+  color: var(--accent);
+}
