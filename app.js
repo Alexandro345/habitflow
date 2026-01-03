@@ -1,9 +1,7 @@
 /* ===== HÁBITOS ===== */
 let habits = JSON.parse(localStorage.getItem("habits")) || [];
 
-function saveHabits() { 
-  localStorage.setItem("habits", JSON.stringify(habits)); 
-}
+function saveHabits() { localStorage.setItem("habits", JSON.stringify(habits)); }
 
 function renderHabits() {
   const habitList = document.getElementById("habitList");
@@ -42,10 +40,9 @@ if ("serviceWorker" in navigator) {
     .catch(err=>console.error("❌ SW error", err));
 }
 
-/* ===== PESTAÑAS BOTTOM NAV ===== */
+/* ===== PESTAÑAS ===== */
 const navButtons = document.querySelectorAll(".bottom-nav button");
 const tabs = document.querySelectorAll(".tab");
-
 navButtons.forEach(btn => btn.addEventListener("click", () => {
   const target = btn.dataset.tab;
   tabs.forEach(t => t.classList.remove("active"));
@@ -53,23 +50,14 @@ navButtons.forEach(btn => btn.addEventListener("click", () => {
   navButtons.forEach(b=>b.classList.remove("active"));
   btn.classList.add("active");
 }));
-
 document.querySelector('.bottom-nav button[data-tab="habits"]').classList.add("active");
 
 /* ===== TOGGLES CONFIGURACIÓN ===== */
 const darkModeToggle = document.getElementById("darkModeToggle");
-if(localStorage.getItem("darkMode")==="enabled"){
-  document.body.classList.add("dark-mode"); 
-  darkModeToggle.checked=true; 
-}
+if(localStorage.getItem("darkMode")==="enabled"){ document.body.classList.add("dark-mode"); darkModeToggle.checked=true; }
 darkModeToggle.addEventListener("change",()=> {
-  if(darkModeToggle.checked){
-    document.body.classList.add("dark-mode"); 
-    localStorage.setItem("darkMode","enabled");
-  } else{
-    document.body.classList.remove("dark-mode"); 
-    localStorage.setItem("darkMode","disabled");
-  }
+  if(darkModeToggle.checked){ document.body.classList.add("dark-mode"); localStorage.setItem("darkMode","enabled"); }
+  else{ document.body.classList.remove("dark-mode"); localStorage.setItem("darkMode","disabled"); }
 });
 
 const notifyToggle = document.getElementById("notifyToggle");
@@ -77,17 +65,9 @@ if(localStorage.getItem("notifications")==="enabled") notifyToggle.checked=true;
 notifyToggle.addEventListener("change", async ()=>{
   if(notifyToggle.checked){
     const permission = await Notification.requestPermission();
-    if(permission==="granted"){
-      localStorage.setItem("notifications","enabled");
-      alert("🔔 Recordatorios activados");
-    } else{
-      notifyToggle.checked=false;
-      localStorage.setItem("notifications","disabled");
-      alert("❌ Permiso denegado");
-    }
-  } else{
-    localStorage.setItem("notifications","disabled");
-  }
+    if(permission==="granted"){ localStorage.setItem("notifications","enabled"); alert("🔔 Recordatorios activados"); }
+    else{ notifyToggle.checked=false; localStorage.setItem("notifications","disabled"); alert("❌ Permiso denegado"); }
+  } else{ localStorage.setItem("notifications","disabled"); }
 });
 
 /* ===== RECORDATORIOS AUTOMÁTICOS ===== */
@@ -98,44 +78,53 @@ setInterval(()=>{
     const today = new Date().toDateString();
     habits.forEach(habit=>{
       if(!habit.lastCompleted || habit.lastCompleted!==today){
-        if(habit.reminderHour===hour){
-          new Notification("⏰ HabitFlow",{ body:`Recuerda: ${habit.name}` });
-        }
+        if(habit.reminderHour===hour){ new Notification("⏰ HabitFlow",{ body:`Recuerda: ${habit.name}` }); }
       }
     });
   }
 },60000);
 
-/* ===== MENU ORDENAR HÁBITOS ===== */
+// ===== MENU ORDENAR HÁBITOS (abrir/cerrar con un solo botón) =====
 const menuBtn = document.getElementById("menuBtn");
 const sortTab = document.getElementById("sortHabits");
 const sortList = document.getElementById("sortList");
-const closeSort = document.getElementById("closeSort");
 
-menuBtn.addEventListener("click",()=>{
-  menuBtn.classList.toggle("active");
-  sortTab.classList.toggle("active");
-  renderSortList();
-});
-closeSort.addEventListener("click",()=>{
-  menuBtn.classList.remove("active");
-  sortTab.classList.remove("active");
+// Abrir o cerrar la pestaña al presionar el mismo botón
+menuBtn.addEventListener("click", () => {
+  const isActive = sortTab.classList.contains("active");
+  sortTab.classList.toggle("active", !isActive);
+  menuBtn.classList.toggle("active", !isActive);
+
+  // Si se abre, renderizamos la lista
+  if (!isActive) renderSortList();
 });
 
-function renderSortList(){
-  sortList.innerHTML="";
-  habits.forEach((habit,index)=>{
+// Función para renderizar lista de hábitos
+function renderSortList() {
+  sortList.innerHTML = "";
+  if (habits.length === 0) {
     const li = document.createElement("li");
-    li.textContent=habit.name;
+    li.textContent = "No hay hábitos aún";
+    sortList.appendChild(li);
+    return;
+  }
+
+  habits.forEach((habit, index) => {
+    const li = document.createElement("li");
+    li.textContent = habit.name;
+
+    // Botón eliminar
     const delBtn = document.createElement("button");
     delBtn.classList.add("delete-btn");
-    delBtn.textContent="–";
-    delBtn.addEventListener("click",()=>{
-      habits.splice(index,1);
+    delBtn.textContent = "–";
+
+    delBtn.addEventListener("click", () => {
+      habits.splice(index, 1);
       saveHabits();
       renderSortList();
       renderHabits();
     });
+
     li.appendChild(delBtn);
     sortList.appendChild(li);
   });
@@ -146,7 +135,7 @@ const addBtn = document.getElementById("addBtn");
 
 const addTab = document.createElement("section");
 addTab.id = "addHabitTab";
-addTab.classList.add("tab","sort-tab","add-tab"); // usamos sort-tab para animación hacia arriba
+addTab.classList.add("tab","sort-tab","add-tab");
 addTab.innerHTML=`
   <div class="sort-header">
     <h2>Nuevo Hábito</h2>
@@ -161,32 +150,26 @@ const closeAdd = document.getElementById("closeAdd");
 const saveHabit = document.getElementById("saveHabit");
 const newHabitInput = document.getElementById("newHabitInput");
 
-// Abrir pestaña al presionar +
 addBtn.addEventListener("click",()=>{
   addTab.classList.add("active");
+  addTab.offsetHeight; // forzar reflow
+  addTab.style.bottom = "0";
   newHabitInput.focus();
 });
 
-// Cerrar pestaña
 closeAdd.addEventListener("click",()=>{
-  addTab.classList.remove("active");
+  addTab.style.bottom = "-100%";
+  setTimeout(()=>addTab.classList.remove("active"), 400);
 });
 
-// Confirmar nuevo hábito
 saveHabit.addEventListener("click",()=>{
   const text = newHabitInput.value.trim();
   if(!text) return;
 
-  habits.push({
-    name:text,
-    completed:false,
-    streak:0,
-    lastCompleted:null,
-    reminderHour:9
-  });
-
+  habits.push({ name:text, completed:false, streak:0, lastCompleted:null, reminderHour:9 });
   newHabitInput.value="";
-  addTab.classList.remove("active");
+  addTab.style.bottom = "-100%";
+  setTimeout(()=>addTab.classList.remove("active"), 400);
   saveHabits();
   renderHabits();
 });
