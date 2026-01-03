@@ -197,3 +197,33 @@ function renderSortList() {
 
 // Actualizar la lista de ordenar al abrir pestaña
 menuBtn.addEventListener("click", renderSortList);
+
+// Botones y pestañas
+const addHabitTab = document.getElementById("addHabitTab");
+const closeAdd = document.getElementById("closeAdd");
+const submitHabit = document.getElementById("submitHabit");
+
+// Abrir pestaña agregar hábito
+addBtn.addEventListener("click", () => {
+  addHabitTab.classList.add("active");
+  habitInput.focus();
+});
+
+// Cerrar pestaña agregar hábito
+closeAdd.addEventListener("click", () => {
+  addHabitTab.classList.remove("active");
+});
+
+// Botón agregar dentro de pestaña
+submitHabit.addEventListener("click", () => {
+  addHabit();
+  addHabitTab.classList.remove("active");
+});
+
+// También Enter dentro del input
+habitInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    addHabit();
+    addHabitTab.classList.remove("active");
+  }
+});

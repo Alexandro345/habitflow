@@ -10,34 +10,32 @@
   <link rel="icon" href="logo.png" type="image/png">
 </head>
 <body>
+
   <div class="app">
-    <h1>HabitFlow</h1>
 
-    <!-- Secciones -->
-
+    <!-- LISTA DE HÁBITOS -->
     <section id="habits" class="tab active">
-      <div class="input-row">
-        <input id="habitInput" type="text" placeholder="Nuevo hábito">
-      <!-- Boton agregar habito-->
-      <button id="addBtn" class="add-btn">
-        <img src="add-icon.png" alt="Agregar Hábito">
-      </button>
-      </div>
       <ul id="habitList"></ul>
     </section>
-    <!-- Botón menú hamburguesa -->
-    <!-- Botón hamburguesa -->
+
+    <!-- BOTONES ARRIBA -->
+    <div class="top-buttons">
+    <!-- Botón hamburguesa ordenar -->
     <button id="menuBtn" class="menu-btn">
       <span class="line line1"></span>
       <span class="line line2"></span>
       <span class="line line3"></span>
     </button>
 
-    <!-- Icono de cierre -->
-    <img id="closeIcon" src="close-icon.png" alt="Cerrar" class="close-icon">
+    <!-- Botón agregar hábito a la derecha -->
+    <button id="addBtn" class="glass-circle">
+      <img src="add-icon.png" alt="Agregar hábito">
+    </button>
+   </div>
 
-    <!-- Nueva pestaña Ordenar Hábitos -->
-    <section id="sortHabits" class="tab sort-tab">
+
+    <!-- PESTAÑA ORDENAR HÁBITOS -->
+    <section id="sortHabits" class="sort-tab">
       <div class="sort-header">
         <h2>Ordenar Hábitos</h2>
         <button id="closeSort" class="close-btn">
@@ -47,51 +45,63 @@
       <ul id="sortList"></ul>
     </section>
 
+    <!-- PESTAÑA AGREGAR HÁBITO -->
+    <section id="addHabitTab" class="sort-tab">
+      <div class="sort-header">
+        <h2>Agregar Hábito</h2>
+        <button id="closeAdd" class="close-btn">
+          <img src="close-icon.png" alt="Cerrar">
+        </button>
+      </div>
+      <div class="add-habit-input">
+        <input id="habitInput" type="text" placeholder="Nuevo hábito">
+        <button id="submitHabit">Agregar</button>
+      </div>
+    </section>
 
+    <!-- ESTADÍSTICAS -->
     <section id="stats" class="tab">
       <h2>Estadísticas</h2>
       <div id="streaks"></div>
       <div id="calendar"></div>
     </section>
 
+    <!-- CONFIGURACIÓN -->
     <section id="settings" class="tab">
-  <h2>Configuración</h2>
+      <h2>Configuración</h2>
+      <ul class="settings-list">
+        <li>
+          <span>Apariencia</span>
+          <div class="setting-item">
+            <span>Modo oscuro</span>
+            <label class="switch">
+              <input type="checkbox" id="darkModeToggle">
+              <span class="slider"></span>
+            </label>
+          </div>
+        </li>
+        <li>
+          <span>Notificaciones</span>
+          <div class="setting-item">
+            <span>Recordatorios</span>
+            <label class="switch">
+              <input type="checkbox" id="notifyToggle">
+              <span class="slider"></span>
+            </label>
+          </div>
+        </li>
+      </ul>
+    </section>
 
-  <ul class="settings-list">
-    <li>
-      <span>Apariencia</span>
-      <div class="setting-item">
-        <span>Modo oscuro</span>
-        <label class="switch">
-          <input type="checkbox" id="darkModeToggle">
-          <span class="slider"></span>
-        </label>
-      </div>
-    </li>
-    
-<!-- Notificaciones -->
-    <li>
-      <span>Notificaciones</span>
-      <div class="setting-item">
-        <span>Recordatorios</span>
-        <label class="switch">
-          <input type="checkbox" id="notifyToggle">
-          <span class="slider"></span>
-        </label>
-      </div>
-    </li>
-  </ul>
-</section>
+  </div>
 
-<!-- Barra de navegación -->
-<nav class="bottom-nav">
-  <button data-tab="habits">🏃‍♂️<br>Hábitos</button>
-  <button data-tab="stats">📊<br>Estadísticas</button>
-  <button data-tab="settings">⚙️<br>Configuración</button>
-</nav>
-
+  <!-- BARRA INFERIOR -->
+  <nav class="bottom-nav">
+    <button data-tab="habits">🏃‍♂️<br>Hábitos</button>
+    <button data-tab="stats">📊<br>Estadísticas</button>
+    <button data-tab="settings">⚙️<br>Configuración</button>
+  </nav>
 
   <script src="app.js"></script>
 </body>
 </html>
-
