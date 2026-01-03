@@ -72,3 +72,33 @@ function saveHabits() {
 }
 
 renderHabits();
+
+if ("Notification" in window) {
+  Notification.requestPermission();
+}
+
+setInterval(() => {
+  const now = new Date();
+  const hour = now.getHours();
+
+  habits.forEach(habit => {
+    const today = new Date().toDateString();
+    if (!habit.history[today] && habit.reminderHour === hour) {
+      new Notification("⏰ HabitFlow", {
+        body: `Recuerda: ${habit.name}`
+      });
+    }
+  });
+}, 60000);
+
+const notifyBtn = document.getElementById("notifyBtn");
+
+notifyBtn.addEventListener("click", async () => {
+  const permission = await Notification.requestPermission();
+
+  if (permission === "granted") {
+    alert("🔔 Recordatorios activados");
+  } else {
+    alert("❌ Permiso denegado");
+  }
+});
