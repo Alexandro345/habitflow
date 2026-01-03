@@ -153,3 +153,44 @@ setInterval(() => {
     });
   }
 }, 60000);
+
+/* ===== MENU ORDENAR HABITOS ===== */
+const menuBtn = document.getElementById("menuBtn");
+const sortTab = document.getElementById("sortHabits");
+const sortList = document.getElementById("sortList");
+
+// Abrir pestaña
+menuBtn.addEventListener("click", () => {
+  sortTab.classList.add("active");
+  renderSortList();
+});
+
+// Cerrar pestaña tocando fuera o con ESC (opcional)
+sortTab.addEventListener("click", e => {
+  if (e.target === sortTab) {
+    sortTab.classList.remove("active");
+  }
+});
+
+// Renderizar lista de hábitos en pestaña Ordenar
+function renderSortList() {
+  sortList.innerHTML = "";
+  habits.forEach((habit, index) => {
+    const li = document.createElement("li");
+    li.textContent = habit.name;
+
+    // Botón eliminar
+    const delBtn = document.createElement("button");
+    delBtn.classList.add("delete-btn");
+    delBtn.textContent = "–"; // símbolo de Apple
+    delBtn.addEventListener("click", () => {
+      habits.splice(index, 1);
+      saveHabits();
+      renderSortList();
+      renderHabits();
+    });
+
+    li.appendChild(delBtn);
+    sortList.appendChild(li);
+  });
+}
