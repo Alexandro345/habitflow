@@ -93,12 +93,17 @@ setInterval(() => {
 
 const notifyBtn = document.getElementById("notifyBtn");
 
-notifyBtn.addEventListener("click", async () => {
-  const permission = await Notification.requestPermission();
+if (notifyBtn) {
+  notifyBtn.addEventListener("click", async () => {
+    console.log("Botón presionado");
 
-  if (permission === "granted") {
-    alert("🔔 Recordatorios activados");
-  } else {
-    alert("❌ Permiso denegado");
-  }
-});
+    const permission = await Notification.requestPermission();
+    console.log("Permiso:", permission);
+
+    if (permission === "granted") {
+      alert("🔔 Recordatorios activados");
+    } else if (permission === "denied") {
+      alert("❌ Permiso denegado");
+    }
+  });
+}
