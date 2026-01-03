@@ -114,3 +114,21 @@ if ("serviceWorker" in navigator) {
     .catch(err => console.error("❌ SW error", err));
 }
 
+// Cambiar entre pestañas
+const navButtons = document.querySelectorAll(".bottom-nav button");
+const tabs = document.querySelectorAll(".tab");
+
+navButtons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    const target = btn.dataset.tab;
+
+    tabs.forEach(tab => tab.classList.remove("active"));
+    document.getElementById(target).classList.add("active");
+
+    navButtons.forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+  });
+});
+
+// Por defecto, marcar Hábitos
+document.querySelector('.bottom-nav button[data-tab="habits"]').classList.add("active");

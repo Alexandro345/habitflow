@@ -4,9 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HabitFlow</title>
-  <button id="notifyBtn">Activar recordatorios</button>
-
-  <link rel="manifest" href=" manifest.json">
+  <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#4CAF50">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -14,14 +12,37 @@
   <div class="app">
     <h1>HabitFlow</h1>
 
-    <div class="input-row">
-      <input id="habitInput" type="text" placeholder="Nuevo hábito">
-      <button id="addBtn">+</button>
-    </div>
+    <!-- Secciones -->
+    <section id="habits" class="tab active">
+      <div class="input-row">
+        <input id="habitInput" type="text" placeholder="Nuevo hábito">
+        <button id="addBtn">+</button>
+      </div>
+      <ul id="habitList"></ul>
+      <button id="notifyBtn">Activar recordatorios</button>
+    </section>
 
-    <ul id="habitList"></ul>
+    <section id="stats" class="tab">
+      <h2>Estadísticas</h2>
+      <div id="streaks"></div>
+      <div id="calendar"></div>
+    </section>
+
+    <section id="settings" class="tab">
+      <h2>Configuración</h2>
+      <p>Aquí puedes poner opciones como notificaciones, tema oscuro, etc.</p>
+    </section>
   </div>
+
+<!-- Barra de navegación -->
+<nav class="bottom-nav">
+  <button data-tab="habits">🏃‍♂️<br>Hábitos</button>
+  <button data-tab="stats">📊<br>Estadísticas</button>
+  <button data-tab="settings">⚙️<br>Configuración</button>
+</nav>
+
 
   <script src="app.js"></script>
 </body>
 </html>
+
