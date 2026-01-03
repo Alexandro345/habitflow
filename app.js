@@ -15,7 +15,7 @@ function addHabit() {
     completed: false,
     streak: 0,
     lastCompleted: null,
-    reminderHour: 9 // 9 AM por defecto
+    reminderHour: 9
   });
 
   habitInput.value = "";
@@ -37,8 +37,7 @@ function renderHabits() {
     li.textContent = `${habit.name} 🔥 ${habit.streak}`;
 
     if (habit.completed) {
-      li.style.textDecoration = "line-through";
-      li.style.opacity = "0.6";
+      li.classList.add("completed");
     }
 
     li.addEventListener("click", () => toggleHabit(index));
@@ -50,20 +49,14 @@ function toggleHabit(index) {
   const habit = habits[index];
   const today = new Date().toDateString();
 
-  // Si ya fue completado hoy, no hacer nada
-  if (habit.completed && habit.lastCompleted === today) return;
+  // Evitar doble check el mismo día
+  if (habit.lastCompleted === today) return;
 
   habit.completed = true;
 
-  // Lógica de racha
   if (habit.lastCompleted) {
     const yesterday = new Date(Date.now() - 86400000).toDateString();
-
-    if (habit.lastCompleted === yesterday) {
-      habit.streak += 1;
-    } else {
-      habit.streak = 1;
-    }
+    habit.streak = habit.lastCompleted === yesterday ? habit.streak + 1 : 1;
   } else {
     habit.streak = 1;
   }
@@ -78,16 +71,4 @@ function saveHabits() {
   localStorage.setItem("habits", JSON.stringify(habits));
 }
 
-function checkReminders() {
-  const now = new Date();
-  const currentHour = now.getHours();
-
-  habits.forEach(habit => {
-    if (!habit.completed && habit.reminderHour === currentHour) {
-      alert(`⏰ Recuerda tu hábito: ${habit.name}`);
-    }
-  });
-}
-
 renderHabits();
-checkReminders();
