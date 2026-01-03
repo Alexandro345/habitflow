@@ -1,52 +1,28 @@
-* {
-  box-sizing: border-box;
-  font-family: system-ui, sans-serif;
-}
-
 body {
-  margin: 0;
-  background: #f7f7f7;
-  color: #222;
+  font-family: system-ui, sans-serif;
+  background: #f5f5f5;
+  padding: 20px;
+  max-width: 400px;
+  margin: auto;
 }
 
-header {
-  padding: 20px;
+h1 {
   text-align: center;
 }
 
-main {
-  padding: 20px;
-}
-
-#habitList {
-  list-style: none;
-  padding: 0;
-}
-
-.habit {
-  background: white;
-  padding: 15px;
-  border-radius: 12px;
-  margin-bottom: 10px;
-  display: flex;
-  justify-content: space-between;
+input {
+  width: 70%;
+  padding: 8px;
 }
 
 button {
-  width: 100%;
-  padding: 15px;
-  font-size: 16px;
-  border: none;
-  border-radius: 12px;
-  background: black;
-  color: white;
+  padding: 8px;
 }
 
 li {
-  list-style: none;
+  background: white;
   padding: 10px;
   margin-top: 8px;
-  background: #1e293b;
-  border-radius: 6px;
   cursor: pointer;
+  border-radius: 6px;
 }

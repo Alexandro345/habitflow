@@ -1,25 +1,21 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HabitFlow</title>
 
-  <link rel="manifest" href="manifest.json">
+  <link rel="manifest" href="app.json">
   <link rel="stylesheet" href="style.css">
-
 </head>
 <body>
 
-  <header>
-    <h1>HabitFlow</h1>
-  </header>
+  <h1>HabitFlow</h1>
 
-  <main>
-    <ul id="habitList"></ul>
+  <input id="habitInput" type="text" placeholder="Nuevo hábito">
+  <button id="addBtn">Agregar</button>
 
-    <button id="addHabitBtn">＋ Nuevo hábito</button>
-  </main>
+  <ul id="habitList"></ul>
 
   <script src="app.js"></script>
 </body>
